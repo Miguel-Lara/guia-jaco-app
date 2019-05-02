@@ -1,0 +1,25 @@
+.FilterBox * {
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.FilterBox .ItemDiv {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+}
+
+.FilterBox .Radio {
+  margin-left: 20px;
+  margin-right: 5px;
+}
+
+.FilterBox .Label {
+  height: 16px;
+  margin-top: 10px;
+}
+
+.FilterBox .Details {
+  background: #f3f3f3;
+}

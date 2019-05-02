@@ -1,33 +1,67 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.spacer {
+  flex-grow: 1;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.main-bg-color {
+  background: #52569f !important;
+  color: white !important;
 }
 
-.App-link {
-  color: #61dafb;
+.main-color,
+.main-color * {
+  color: #52569f !important;
+  border-color: #52569f !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sec-bg-color {
+  background: #f1645b !important;
+  color: white !important;
+}
+
+.sec-color {
+  color: #f1645b !important;
+  border-color: #f1645b !important;
+}
+
+.opaque-bg-color {
+  background: #333 !important;
+  color: white !important;
+}
+
+.yellow-bg-color {
+  background: #ffcc4e !important;
+}
+
+.grey-bg-color {
+  background: #f3f3f3 !important;
+}
+
+.ButtonDefault {
+  color: white !important;
+  background: #5d72b7 !important;
+  box-shadow: none !important;
+}
+
+.error-color {
+  color: red !important;
+  font-size: 14px;
+  margin-bottom: 20px !important;
+  float: left;
+}
+
+.ButtonDefaultIcon,
+.ButtonDefaultIcon * {
+  font-size: 18px !important;
+  margin-left: 5px !important;
+}
+
+.Spinner {
+  position: absolute;
+  margin-left: 50%;
+  left: -20px;
+  top: 100px;
 }

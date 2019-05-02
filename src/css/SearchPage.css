@@ -1,0 +1,31 @@
+.SearchPage h1 {
+  margin-top: 20px !important;
+  text-transform: uppercase;
+}
+
+.SearchPage h2 {
+  margin-top: 10px !important;
+}
+
+.Back {
+  width: 100%;
+  padding: 8px;
+  background: #f3f3f3;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+a:-webkit-any-link {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.Back span {
+  margin: 5px 0 0 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  text-transform: uppercase;
+  font-size: 12px;
+}

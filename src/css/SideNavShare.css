@@ -1,0 +1,25 @@
+.SideNavShare {
+  margin: 10px;
+  padding-bottom: 10px;
+  border-top: thin solid #f3f3f3;
+}
+
+.SideNavShare p {
+  width: 100%;
+  text-align: center;
+}
+
+.SideNavShare * {
+  box-shadow: none !important;
+}
+
+.SideNavShare .Item {
+  width: 25%;
+  margin: 0;
+  padding: 0;
+  float: left;
+  position: relative;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}

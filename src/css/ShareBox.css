@@ -1,0 +1,32 @@
+.ShareBox {
+  background: #444;
+  width: 100%;
+  min-height: 100px;
+  padding: 30px 0;
+}
+
+.ShareBox h1 {
+  font-size: 18px;
+  text-align: center;
+  margin: 0 30px 30px 30px;
+  color: white;
+}
+
+.ShareBoxItem {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 10px 30px;
+  padding: 5px 0 0 0;
+}
+
+.ShareBoxItem p {
+  color: white;
+  font-weight: bold;
+}
+
+.ShareBoxIcon {
+  font-size: 40px;
+  margin: 5px 10px 0 0;
+  color: white;
+}

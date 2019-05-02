@@ -1,0 +1,20 @@
+.Footer {
+  background: #5d72b7;
+  color: white !important;
+  padding: 50px 0 20px 0 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Footer img {
+  max-width: 240px;
+  margin-bottom: 30px;
+}
+
+.Footer p {
+  font-size: 12px;
+  margin: 0 0 30px 0;
+  color: white;
+}

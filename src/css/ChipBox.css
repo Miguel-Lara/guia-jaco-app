@@ -1,0 +1,29 @@
+.ChipsContainer {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ChipTitle {
+  margin-bottom: 10px !important;
+  padding-bottom: 0 !important;
+  color: white !important;
+}
+
+.Chip {
+  margin: 0 5px 5px 0;
+  padding: 5px;
+  width: auto;
+  font-size: 14px !important;
+  position: relative;
+  float: left;
+}
+
+.Chip,
+.Chip *,
+.Chip a,
+.Chip a:link,
+.Chip a:visited,
+.Chip a:active,
+.Chip a:-webkit-any-link {
+  color: white !important;
+}

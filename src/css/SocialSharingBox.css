@@ -1,0 +1,47 @@
+.SocialSharingBox {
+  background: #52569f;
+  color: white;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.SocialSharingBox h1 {
+  font-size: 18px;
+  text-align: center;
+  margin: 0 30px 30px 30px;
+  color: white;
+}
+
+.SocialSharingBox a,
+.SocialSharingBox a:visited,
+.SocialSharingBox a:link,
+.SocialSharingBox a:active {
+  text-decoration: none !important;
+  color: white !important;
+  padding: 20px 0 !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: row;
+}
+
+.SocialSharingBox .SocialIcons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.SocialSharingBox .Icon {
+  font-size: 60px;
+  margin: 0 20px;
+}
+
+.SocialSharingBox .Link {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
