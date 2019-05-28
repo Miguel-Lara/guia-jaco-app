@@ -3,6 +3,7 @@ import { TextField, Button, Divider } from '@material-ui/core';
 import Send from '@material-ui/icons/Send';
 
 import FormResult from './FormResult';
+// import TextInput from './form_fields/TextInput';
 
 class AddCompany extends Component {
   state = {
@@ -44,22 +45,14 @@ class AddCompany extends Component {
         <Divider />
         <p>O puede completar el siguiente formulario:</p>
         <h1>Formulario de alta Guía Jaco</h1>
+
+        {/*         
+        TODO: Todos los campos tienen que tener este formato:
+        <TextInput label="test" value={name} onChange={onChange}  /> */}
+
         <div className="Row">
           <TextField
-            id="standard-name"
-            label="Nombre y apellido del responsable"
-            className="Input"
-            value={this.state.name}
-            onChange={this.handleChange('name')}
-            margin="normal"
-            fullWidth
-          />
-        </div>
-        <div className="Row">
-          <TextField
-            id="standard-name"
             label="Nombre de la empresa o negocio"
-            className="Input"
             value={this.state.name}
             onChange={this.handleChange('name')}
             margin="normal"
@@ -68,9 +61,7 @@ class AddCompany extends Component {
         </div>
         <div className="Row">
           <TextField
-            id="standard-name"
             label="Email"
-            className="Input"
             value={this.state.name}
             onChange={this.handleChange('name')}
             margin="normal"
@@ -79,9 +70,7 @@ class AddCompany extends Component {
         </div>
         <div className="Row">
           <TextField
-            id="standard-name"
             label="Teléfono (Opcional)"
-            className="Input"
             value={this.state.name}
             onChange={this.handleChange('name')}
             margin="normal"

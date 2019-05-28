@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import Radio from '@material-ui/core/Radio';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import FilterBoxItem from './FilterBoxItem';
+import Typography from '@material-ui/core/Typography';
 import '../../css/FilterBox.css';
 
 class SimpleExpansionPanel extends Component {
@@ -15,57 +14,69 @@ class SimpleExpansionPanel extends Component {
   };
 
   setLabel() {
-    if (this.state.currentId === -1) {
-      return <i>(Opcional)</i>;
-    } else {
+    if (this.state.currentId !== -1) {
       const res = this.props.items.filter(
         element => element.id === this.state.currentId
       );
-      return <span>{res[0].label}</span>;
+      return <span>&nbsp;{res[0].label}</span>;
     }
+    return <i>&nbsp;(Opcional)</i>;
   }
 
-  onClick = value => {
+  onClick = itemId => {
     this.setState({
-      currentId: value.id,
+      currentId: itemId,
       opened: false
     });
     if (this.props.cb) {
-      this.props.cb(value.id);
+      this.props.cb(itemId);
     }
   };
 
-  buildItems = () => {
-    return this.props.items.map(item => (
-      <div key={item.id} onClick={() => this.onClick(item)} className="ItemDiv">
-        <Radio checked={item.id === this.state.currentId} className="Radio" />
-        <div className="Label">{item.label}</div>
-      </div>
-    ));
-  };
+  swapOpened() {
+    this.setState({
+      opened: !this.state.opened
+    });
+  }
+
+  setupItem(item) {
+    return {
+      key: item.id,
+      id: item.id,
+      onClick: this.onClick.bind(this),
+      checked: item.id === this.state.currentId,
+      label: item.label
+    };
+  }
 
   componentDidUpdate(newProps) {
     if (newProps.selected !== this.state.currentId) {
-      console.log('TODO: UPDATEAR EL STATE!!!!!');
+      // TODO: Chequear para no updatear de más.
     }
   }
 
   render() {
+    const opened = this.state.opened;
+    const title = this.props.title;
+    const items = this.props.items;
+    const icon = <ExpandMoreIcon />;
+    const onClick = this.swapOpened.bind(this);
+
     return (
       <div className="FilterBox">
-        <ExpansionPanel expanded={this.state.opened}>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            onClick={() => this.setState({ opened: !this.state.opened })}
-          >
+        <ExpansionPanel expanded={opened}>
+          <ExpansionPanelSummary expandIcon={icon} onClick={onClick}>
             <Typography>
-              <strong>{this.props.title}</strong>
-              &nbsp;
+              <strong>{title}</strong>
               {this.setLabel()}
             </Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="Details">
-            <Typography component={'span'}>{this.buildItems()}</Typography>
+          <ExpansionPanelDetails>
+            <Typography component={'span'}>
+              {items.map(item => (
+                <FilterBoxItem {...this.setupItem(item)} />
+              ))}
+            </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

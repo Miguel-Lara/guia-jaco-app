@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import '../../css/ResultItem.css';
 
 const ResultItem = props => {
-
   // --------------
   // Item builder:
   // --------------
@@ -14,7 +13,7 @@ const ResultItem = props => {
       <Link
         key={i}
         className={'Categories ' + _class}
-        to={'/categorias/' + element.id}
+        to={`/buscar/categorías/${element.id}/asc`}
       >
         {element.label}
       </Link>
@@ -22,20 +21,26 @@ const ResultItem = props => {
     return <div className="ChipContainer">{dom}</div>;
   };
 
+  const {
+    company_id,
+    title,
+    description,
+    categories,
+    subcategories
+  } = props.data;
+
+  const link = '/empresa/' + company_id;
+
   return (
     <div className="ResultItem">
       <div className="Left">
-        <ButtonBase
-          component={Link}
-          to={'/empresa/' + props.data.company_id}
-          className="ButtonBase"
-        >
-          <h5>{props.data.title}</h5>
-          <h6>{props.data.description}</h6>
+        <ButtonBase component={Link} to={link} className="ButtonBase">
+          <h5>{title}</h5>
+          <h6>{description}</h6>
         </ButtonBase>
 
-        {buildItems(props.data.categories, 'main-bg-color')}
-        {buildItems(props.data.subcategories, 'sec-bg-color')}
+        {buildItems(categories, 'main-bg-color')}
+        {buildItems(subcategories, 'sec-bg-color')}
       </div>
     </div>
   );

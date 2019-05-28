@@ -11,16 +11,14 @@ class ConfigProvider extends Component {
   };
 
   componentWillMount() {
+    console.log('ConfigProvider: Axios');
     axios
       .get(API_URL + '?file_name=config')
       .then(response => {
-
-        setTimeout(() => { // TODO: ONLY TEST
-          this.setState({
-            loading: false,
-            config: response.data
-          });
-        }, 500);
+        this.setState({
+          loading: false,
+          config: response.data
+        });
       })
       .catch(error => {
         console.log('ERROR cargando el config: ', error);

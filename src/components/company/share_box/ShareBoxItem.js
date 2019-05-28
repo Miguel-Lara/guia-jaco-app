@@ -3,7 +3,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFacebook, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import '../../css/ShareBox.css';
+import '../../../css/ShareBox.css';
 
 const ShareBoxItem = props => {
   //

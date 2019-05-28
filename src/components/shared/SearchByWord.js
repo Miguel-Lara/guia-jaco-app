@@ -1,26 +1,8 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
-
 import FilterBox from '../search/FilterBox';
 import '../../css/MainLayout.css';
-
-/* 
-// Levantar el valor del input:
-
-import { useState } from 'react';
-
-function myFunctionalComponentFunction() {
-  const [input, setInput] = useState(''); // '' is the initial state value
-  return (
-    <div>
-    <label>Please specify:</label>
-    <input value={input} onInput={e => setInput(e.target.value)/>
-    </div>
-  );
-}
-
-*/
 
 class SearchByWord extends Component {
   constructor(props) {
@@ -32,17 +14,17 @@ class SearchByWord extends Component {
 
   state = {
     word: '',
-    category: '',
+    category: -1,
+    minChars: 4,
     error: false
   };
 
   handleKeyUp(event) {
     const word = event.target.value;
-    console.log(word);
-    // this.setState({
-    //   word,
-    //   error: false
-    // });
+    this.setState({
+      word,
+      error: false
+    });
   }
 
   handleFilter(id) {
@@ -50,15 +32,13 @@ class SearchByWord extends Component {
   }
 
   submit() {
-    // TODO: Pasar el 4 a suna variable.
-    if (this.state.word.length < 4) {
+    if (this.state.word.length < this.state.minChars) {
       this.setState({ error: true });
       return;
     }
-
-    /* // Redirect:
-    const path = `/buscar/${this.state.word}/${this.state.category}/0`;
-    console.log(this.props.history.push(path)); */
+    // Redirect:
+    const path = `/buscar/${this.state.word}/${this.state.category}/asc`;
+    this.props.history.push(path);
   }
 
   setMessage() {
@@ -76,13 +56,13 @@ class SearchByWord extends Component {
   }
 
   componentDidMount() {
-    const params = this.props.params;
-    if (params) {
+    /*  const params = this.props.params;
+    if (params.word) {
       this.setState({
         word: params.word || '',
         category: params.category
       });
-    }
+    } */
   }
 
   render() {
@@ -95,7 +75,6 @@ class SearchByWord extends Component {
           className="ContentBox_input"
           placeholder="Carpintero, Farmacia, etc..."
           onKeyUp={this.handleKeyUp}
-          // value={this.state.word} // TODO: Initial value.
         />
 
         <FilterBox

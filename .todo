@@ -1,0 +1,5 @@
+. Pagina de resultados de busqueda: 
+    . Al elegir categoría y sub categoría no quedan selected los filtros.
+    . Al volver al home no muestra la última búsqueda realizada.
+
+. Implementar REDUX para todo el sistema.

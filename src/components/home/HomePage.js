@@ -1,30 +1,38 @@
 import React, { Component } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import ContactAccess from '../shared/ContactAccess';
-import Featured from './Featured';
+import Featured from './featured/Featured';
 import Footer from '../shared/Footer';
 import Phones from '../shared/Phones';
 import SearchByWord from '../shared/SearchByWord';
 import SocialSharingBox from '../shared/SocialSharingBox';
-import withConfig from '../../hoc/withConfig';
+import { withRouter } from 'react-router-dom';
+
+// Redux:
+import { connect } from 'react-redux';
+import { getConfig } from '../../redux/actions';
+import { bindActionCreators } from 'redux';
 
 class HomePage extends Component {
-  render() {
+  componentWillMount() {
+    this.props.getConfig();
+  }
 
-    
-    const data = this.props.config;
-    
-    if (data) {
+  render() {
+    if (this.props.config) {
+      const { featured, phones } = this.props.config;
+      const search = {
+        categories: this.props.config.categories,
+        history: this.props.history,
+        params: this.props.match.params
+      };
+
       return (
-        <div className="Page">
-          <SearchByWord 
-          categories={data.categories} 
-          history={this.props.history}
-          params={this.props.match.params} />
-          <Featured items={data.featured} />
+        <div>
+          <SearchByWord {...search} />
+          <Featured items={featured} />
           <ContactAccess />
-          <Phones items={data.phones} />
+          <Phones items={phones} />
           <SocialSharingBox />
           <Footer />
         </div>
@@ -35,4 +43,17 @@ class HomePage extends Component {
   }
 }
 
-export default withConfig(HomePage);
+function mapStateToProps(state) {
+  return {
+    config: state.config.payload
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getConfig }, dispatch);
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(HomePage));

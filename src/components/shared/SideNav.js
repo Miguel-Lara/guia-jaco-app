@@ -6,11 +6,14 @@ import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-
 import logo from '../../assets/logo-sidenav.png';
 import SideNavShare from '../sidenav/SideNavShare';
-import withConfig from '../../hoc/withConfig';
 import '../../css/SideNav.css';
+
+// Redux:
+import { connect } from 'react-redux';
+import { getConfig } from '../../redux/actions';
+import { bindActionCreators } from 'redux';
 
 class SideNav extends Component {
   state = {
@@ -38,6 +41,10 @@ class SideNav extends Component {
         {dom}
       </List>
     );
+  }
+
+  componentWillMount() {
+    this.props.getConfig();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,4 +81,17 @@ class SideNav extends Component {
   }
 }
 
-export default withConfig(SideNav);
+function mapStateToProps(state) {
+  return {
+    config: state.config.payload
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getConfig }, dispatch);
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SideNav);

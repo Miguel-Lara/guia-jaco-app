@@ -1,111 +1,107 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ButtonBack from './Buttonback';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Divider from '@material-ui/core/Divider';
-import { Link } from 'react-router-dom';
-
-import API_URL from '../../utils/constants';
+import { withRouter } from 'react-router-dom';
 import FilterBox from './FilterBox';
 import Footer from '../shared/Footer';
+import Message from './Message';
 import ResultItem from './ResultItem';
-import withConfig from '../../hoc/withConfig';
 import '../../css/SearchPage.css';
+
+// Redux:
+import { connect } from 'react-redux';
+import { getConfig, search } from '../../redux/actions';
+import { bindActionCreators } from 'redux';
 
 class SearchPage extends Component {
   state = {
     results: null
   };
 
-  loadResults() {
-    axios
-      .get(API_URL + '?file_name=results')
-      .then(response => {
-        this.setState({
-          results: response.data.results
-        });
-      })
-      .catch(error => {
-        console.log('ERROR cargando el config: ', error);
-        this.setState({
-          results: null
-        });
-      });
+  onFilter(event) {
+    // TODO: Recargar la pàgina con el formato:
+    /*
+    buscar/word/ --------------------------> buscar/carpintería
+    buscar/word/category/ -----------------> buscar/carpintería/construcción
+    buscar/word/category/subcategory/ -----> buscar/carpintería/construcción/mano-de-obra
+    buscar/word/category/subcategory/asc --> buscar/carpintería/construcción/mano-de-obra/asc
+    */
   }
 
-  buildResultItems() {
-    if (!this.state.results) {
-      return <div>No se encontraron resultados</div>;
-    }
-    return this.state.results.map((element, index) => (
-      <ResultItem key={index} data={element} />
-    ));
+  componentWillMount() {
+    this.props.search('test_word', 'test_category', 'desc');
+    this.props.getConfig();
   }
 
-  onFilterBoxChanged(event) {
-    // TODO: Pasar a la API:
-    // la palabra a buscar,
-    // la categoría
-    // el orden:
-    this.setState({ results: null });
-    this.loadResults();
-  }
-
-  componentDidMount() {
-    this.loadResults();
+  componentWillReceiveProps(nextProps) {
+    const { results } = nextProps;
+    this.setState({
+      results
+    });
   }
 
   render() {
-    let dom = <CircularProgress className="Spinner" />;
-
     const config = this.props.config;
     const params = this.props.match.params;
+    const results = this.state.results;
 
-    if (config && params && this.state.results) {
-      // Define aliases:
-      const categories = config.categories;
-      const length = this.state.results.length;
-      const word = params.word;
-      const category = params.cat;
-      const sort = params.sort;
+    if (config && params && results) {
+      // -----------
+      // SETUP VIEW:
+      // -----------
+      const { categories, sort_types } = config;
+      const { word, category, sort } = params;
+      const length = results.length;
+      const categFilter = {
+        title: 'Categorías:',
+        items: categories,
+        selected: category,
+        cb: this.onFilter.bind(this)
+      };
+      const subcatFilter = {
+        title: 'Ordenar:',
+        items: sort_types,
+        selected: sort,
+        cb: this.onFilter.bind(this)
+      };
 
-      // Define results DOM:
-      dom = (
-        <div className="Page">
-          <Link className="Back" to={'/home/' + params.word + '/' + category}>
-            <ChevronLeft />
-            <span>Buscar de nuevo</span>
-          </Link>
-
+      // ---------------
+      // IMPLEMENT VIEW:
+      // ---------------
+      return (
+        <div>
+          <ButtonBack word={word} category={category} />
           <div className="ContentBox SearchPage">
             <h1>{word}</h1>
             <h2>{length} resultados</h2>
-            <Divider />
-
-            <FilterBox
-              title="Categorías:"
-              items={categories}
-              selected={category}
-              cb={this.onFilterBoxChanged.bind(this)}
-            />
-
-            <FilterBox
-              title="Ordenar:"
-              items={config.sort_types}
-              selected={sort}
-              cb={this.onFilterBoxChanged.bind(this)}
-            />
-
-            <Divider />
-            {this.buildResultItems()}
+            <FilterBox {...categFilter} />
+            <FilterBox {...subcatFilter} />
+            <Message show={results} />
+            {results.map((item, i) => ( // Pasar a un component "SearchResults".
+              <ResultItem key={i} data={item} />
+            ))}
           </div>
           <Footer />
         </div>
       );
     }
 
-    return dom;
+    return <CircularProgress className="Spinner" />;
   }
 }
 
-export default withConfig(SearchPage);
+function mapStateToProps(state) {
+  return {
+    config: state.config.payload,
+    results: state.api.payload
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getConfig, search }, dispatch);
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(SearchPage));
