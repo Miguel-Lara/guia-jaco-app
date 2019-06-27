@@ -1,13 +1,20 @@
 import React from 'react';
-import ConfigContext from '../contexts/ConfigContext';
+import Spinner from '../components/shared/Spinner';
+import ApiError from '../components/shared/ApiError';
 
-const withConfig = Component => {
-  return function fn(props) {
-    return (
-      <ConfigContext.Consumer>
-        {context => <Component {...props} {...context} />}
-      </ConfigContext.Consumer>
-    );
+const withConfig = (WrappedComponent, requiredProp) => {
+  return class PP extends React.Component {
+    render() {
+      if (!this.props.config) {
+        return <Spinner />;
+      }
+
+      if (this.props.config.error) {
+        return <ApiError />;
+      }
+
+      return <WrappedComponent {...this.props} />;
+    }
   };
 };
 

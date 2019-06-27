@@ -1,22 +1,32 @@
 import axios from 'axios';
 import * as types from '../types';
 
-export function search(word, categoryId, order) {
-  // const url = `${process.env.REACT_APP_API_URL}search/${word}/${categoryId}/${order}`;
-  const url = process.env.REACT_APP_API_URL + '?file_name=results';
-  const request = axios.get(url).then(response => response.data.results);
+export function search(word, categoryId, order, offset, count) {
+  const url = `${process.env.REACT_APP_API_URL}/search`;
+
+  // console.log('search:', url);
+  // console.log(word, categoryId, order, offset, count);
+
+
+  const request = axios
+    .post(url, {
+      word,
+      categoryId,
+      order,
+      offset,
+      count
+    })
+    .then(response => response.data);
   return {
     type: types.SEARCH,
     payload: request
   };
 }
 
-export function getSingle(companyId) {
-  // const url = `${process.env.REACT_APP_API_URL}companies/${companyId}`;
-  const url = process.env.REACT_APP_API_URL + '?file_name=company';
-  const request = axios
-    .get(url)
-    .then(response => response.data);
+export function getCompany(companyId) {
+  const url = `${process.env.REACT_APP_API_URL}/companies/${companyId}`;
+
+  const request = axios.get(url).then(response => response.data);
 
   return {
     type: types.GET_SINGLE,
@@ -24,13 +34,18 @@ export function getSingle(companyId) {
   };
 }
 
-export function sendForm(tableName, data) {
-  const request = axios
-    .post(`${process.env.REACT_APP_API_URL}/contact/${tableName}`, data)
-    .then(response => response.data);
-
+export function loadByCategory(tableName) {
+  const url = `${process.env.REACT_APP_API_URL}/${tableName}`;
+  const request = axios.get(url).then(response => response.data.results);
   return {
-    type: types.SEND_FORM,
+    type: types.LOAD_SECTION,
     payload: request
+  };
+}
+
+export function resetApiState() {
+  return {
+    type: types.API_RESET,
+    payload: null
   };
 }

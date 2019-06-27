@@ -1,5 +1,11 @@
-. Pagina de resultados de busqueda: 
-    . Al elegir categoría y sub categoría no quedan selected los filtros.
-    . Al volver al home no muestra la última búsqueda realizada.
+. Cargar más datos (Para que el usuario pueda buscar más libremente).
 
-. Implementar REDUX para todo el sistema.
+. Home: Autocompletar.
+
+. Aplicar animaciones:
+    . En el mensaje de MinChars.
+    . En la transición entre páginas.
+
+. Service Workers: Leer un poco más sobre esto, implementarlo.
+
+. Locale.

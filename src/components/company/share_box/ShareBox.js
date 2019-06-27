@@ -1,17 +1,44 @@
 import React from 'react';
-
+import Layout from '../../shared/Layout';
 import ShareBoxItem from './ShareBoxItem';
-import '../../../css/ShareBox.css';
+import { Typography } from '@material-ui/core';
 
-const ShareBox = props => {
+const styles = {
+  main: {
+    background: '#444',
+    textAlign: 'center'
+  },
+  h1: {
+    color: 'white'
+  }
+};
+
+const data = [
+  {
+    type: 'whatsapp',
+    title: 'Compartir en Whatsapp'
+  },
+  {
+    type: 'facebook',
+    title: 'Compartir en Facebook'
+  }
+];
+
+const ShareBox = ({ url }) => {
+  const { main, h1 } = styles;
+
   return (
-    <div className="ShareBox">
-      <h1>
-        ¡Comparte este comercio<br />con tus amigos!
-      </h1>
-      <ShareBoxItem type="whatsapp" title="Compartir en Whatsapp" />
-      <ShareBoxItem type="facebook" title="Compartir en Facebook" />
+    <div style={main}>
+      <Layout>
+        <Typography variant="h1" style={h1}>
+          Compartir este comercio
+        </Typography>
+        {data.map(item => (
+          <ShareBoxItem key={item.type} {...item} url={url} />
+        ))}
+      </Layout>
     </div>
   );
 };
+
 export default ShareBox;

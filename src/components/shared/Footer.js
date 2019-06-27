@@ -1,15 +1,24 @@
 import React from 'react';
+import Logo from '../shared/Logo';
+import { Typography } from '@material-ui/core';
 
-import '../../css/MainLayout.css';
-import '../../css/Footer.css';
-import logo from '../../assets/logo-footer.png';
+const styles = {
+  p: {
+    color: 'white',
+    width: '100%',
+    textAlign: 'center',
+    marginTop: 20,
+    marginBottom: 20
+  }
+};
 
-const Footer = props => (
-  <div className="Footer">
-    <img alt="Guía Jaco" src={logo} />
-    <p>© Copyright 2019. Todos los derechos reservados.</p>
-    <p>Desarrollo Pablo Lara</p>
-  </div>
+const Footer = () => (
+  <footer>
+    <Logo type="footer" />
+    <Typography variant="caption" style={styles.p}>
+      © Copyright 2019. Todos los derechos reservados.
+    </Typography>
+  </footer>
 );
 
 export default Footer;

@@ -1,28 +1,26 @@
 import React from 'react';
 import Divider from '@material-ui/core/Divider';
-import ChipTitle from './ChipTitle';
 import ChipsList from './ChipsList';
-import '../../../css/ChipBox.css';
+import PropTypes from 'prop-types';
+import { Typography } from '@material-ui/core';
 
-const styles = {
-  main: {
-    position: 'relative',
-    float: 'left',
-    width: '100%',
-    marginTop: '10px'
-  }
-};
-
-const ChipBox = props => {
-  const { link, color, items, title } = props;
-
+const ChipBox = ({ link, color, items, title }) => {
   return (
-    <div style={styles.main}>
+    <div>
       <Divider />
-      <ChipTitle color={color} title={title} />
+      <Typography variant="h3" color="secondary">
+        {title}
+      </Typography>
       <ChipsList color={color} link={link} items={items} />
     </div>
   );
+};
+
+ChipBox.propTypes = {
+  link: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  items: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default ChipBox;

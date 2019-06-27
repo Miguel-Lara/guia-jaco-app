@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased !important;
 }
 
@@ -15,5 +15,10 @@ body {
   }
   html {
     background: #ccc;
+  }
+
+  #root {
+    min-height: 700px !important;
+    background: white;
   }
 }

@@ -1,41 +1,41 @@
 import React from 'react';
-import Divider from '@material-ui/core/Divider';
 import ChevronRight from '@material-ui/icons/ChevronRight';
-import { ButtonBase } from '@material-ui/core';
-import '../../css/DataBox.css';
+import { ButtonBase, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const styles = {
-  span: {
+  a: {
     display: 'flex',
-    flexGrow: '1'
+    width: '100%',
+    minHeight: 100,
+    marginBottom: 1
   },
-  textIcon: {
+  button: {
     width: '100%',
     minHeight: 20,
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }
 };
 
 const LinkBox = props => {
   const { link, title, value } = props.data;
-
+  const { a, button } = styles;
   return (
-    <a href={link} target="_blank" rel="noopener noreferrer">
-      <Divider />
-      <ButtonBase className="DataBox">
-        <span className="Left main-color">
-          <h3>{title}</h3>
-        </span>
-        <span style={styles.span}>
-          <div style={styles.textIcon}>
-            <p>{value}</p>
-            <span className="spacer" />
-            <ChevronRight />
-          </div>
-        </span>
+    <a href={link} style={a} target="_blank" rel="noopener noreferrer">
+      <ButtonBase style={button}>
+        <Typography variant="body1">{title}</Typography>
+        <Typography variant="body1">{value}</Typography>
+        <ChevronRight />
       </ButtonBase>
     </a>
   );
 };
+
+LinkBox.propTypes = {
+  data: PropTypes.object.isRequired
+};
+
 export default LinkBox;

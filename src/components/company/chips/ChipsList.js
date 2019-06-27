@@ -1,19 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Chip } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-const ChipsList = props => {
-  const _class =
-    props.color === 'secundary' ? 'Chip sec-bg-color' : 'Chip main-bg-color';
+const styles = {
+  chip: {
+    margin: '0 5px 5px 0'
+  }
+};
+
+const ChipsList = ({ color, history, items, link }) => {
+  const { chip } = styles;
 
   return (
-    <div className="ChipsContainer">
-      {props.items.map(item => (
-        <Link key={item.id} className={_class} to={props.link + '/' + item.id}>
-          <span>{item.label}</span>
-        </Link>
+    <div>
+      {items.map(item => (
+        <Chip
+          key={item.id}
+          color={color === 'main' ? 'primary' : 'secondary'}
+          label={item.title}
+          onClick={() => history.push(`/buscar/${link}/${item.string_id}/asc/0`)}
+          style={chip}
+        />
       ))}
     </div>
   );
 };
 
-export default ChipsList;
+ChipsList.propTypes = {
+  color: PropTypes.string,
+  link: PropTypes.string.isRequired,
+  items: PropTypes.array.isRequired
+};
+
+export default withRouter(ChipsList);
